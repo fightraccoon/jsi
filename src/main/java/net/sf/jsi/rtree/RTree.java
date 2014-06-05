@@ -479,6 +479,7 @@ public class RTree implements SpatialIndex, Serializable {
         // if it intersects the passed rectangle. If so, it
         // could contain entries that are contained.
         boolean intersects = false;
+        log.debug(new Integer(n.entryCount).toString());
         for (int i = startIndex; i < n.entryCount; i++) {
           if (Rectangle.intersects(r.minX, r.minY, r.maxX, r.maxY,
                                    n.entriesMinX[i], n.entriesMinY[i], n.entriesMaxX[i], n.entriesMaxY[i])) {

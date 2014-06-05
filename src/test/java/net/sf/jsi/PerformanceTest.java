@@ -145,14 +145,14 @@ public class PerformanceTest {
 
     ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     try {
-      for (int i = 0; i < 100; i++) {
+      for (int i = 0; i < 2; i++) {
         exec.submit(new Runnable() {public void run() {benchmark(new Operation("nearest", new Random(0)) {void execute(SpatialIndex si, Random r) {si.nearest(randomPoint(r), countProc, 0.1f);}}, 100); }});
         exec.submit(new Runnable() {public void run() {benchmark(new Operation("nearestNUnsorted", new Random(0)) {void execute(SpatialIndex si, Random r) {si.nearestNUnsorted(randomPoint(r), countProc, 10, 0.16f);}}, 100); }});
         exec.submit(new Runnable() {public void run() {benchmark(new Operation("nearestN", new Random(0)) {void execute(SpatialIndex si, Random r) {si.nearestN(randomPoint(r), countProc, 10, 0.16f);}}, 100); }});
         exec.submit(new Runnable() {public void run() {benchmark(new Operation("intersects", new Random(0)) {void execute(SpatialIndex si, Random r) {si.intersects(randomRectangle(r, 0.6f), countProc);}}, 100); }});
         exec.submit(new Runnable() {public void run() {benchmark(new Operation("contains", new Random(0)) {void execute(SpatialIndex si, Random r) {si.contains(randomRectangle(r, 0.65f), countProc);}}, 100); }});
       }
-      try { exec.awaitTermination(1, TimeUnit.DAYS); } catch (Exception e) {}
+      try { exec.awaitTermination(1, TimeUnit.MINUTES); } catch (Exception e) {}
     }
     finally {
       exec.shutdown();
